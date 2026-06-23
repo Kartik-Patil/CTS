@@ -14,14 +14,7 @@ const Layout = () => {
 
       <div className="page-wrapper">
         {/* Top bar */}
-        <header style={{
-          position: 'sticky', top: 0, zIndex: 30,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '0.875rem 2.5rem',
-          background: 'rgba(17,17,34,0.92)',
-          backdropFilter: 'blur(12px)',
-          borderBottom: '1px solid var(--border)',
-        }}>
+        <header className="page-header-bar">
           {/* Mobile hamburger */}
           <button
             className="md:hidden"

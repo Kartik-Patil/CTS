@@ -178,7 +178,7 @@ const AdminStudents = () => {
             </div>
 
             <form onSubmit={handleAddSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div className="form-grid-2">
                 <div>
                   <label className="sidebar-section-label" style={{ padding: 0, marginBottom: '0.3rem' }}>Roll Number / USN</label>
                   <input type="text" required value={formData.rollNumber} onChange={(e) => setFormData({ ...formData, rollNumber: e.target.value.toUpperCase() })} className="input-field" placeholder="e.g. 01FE22BCS001" />
@@ -189,7 +189,7 @@ const AdminStudents = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div className="form-grid-2">
                 <div>
                   <label className="sidebar-section-label" style={{ padding: 0, marginBottom: '0.3rem' }}>Date of Birth</label>
                   <input type="date" required value={formData.dateOfBirth} onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })} className="input-field" />
@@ -205,7 +205,7 @@ const AdminStudents = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+              <div className="form-grid-3">
                 <div>
                   <label className="sidebar-section-label" style={{ padding: 0, marginBottom: '0.3rem' }}>Semester</label>
                   <input type="number" min="1" max="8" required value={formData.semester} onChange={(e) => setFormData({ ...formData, semester: parseInt(e.target.value) })} className="input-field" />
@@ -222,7 +222,7 @@ const AdminStudents = () => {
 
               <h3 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#6366f1', marginTop: '0.5rem', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.3rem' }}>Parent & Guardian Details</h3>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div className="form-grid-2">
                 <div>
                   <label className="sidebar-section-label" style={{ padding: 0, marginBottom: '0.3rem' }}>Father Name</label>
                   <input type="text" required value={formData.parentName} onChange={(e) => setFormData({ ...formData, parentName: e.target.value })} className="input-field" placeholder="Suresh Kumar" />

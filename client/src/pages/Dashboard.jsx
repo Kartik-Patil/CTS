@@ -150,7 +150,7 @@ const Dashboard = () => {
       </div>
 
       {/* ── Bottom two-column ─────────────────────────────────── */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '1.5rem', alignItems: 'start' }}>
+      <div className="dashboard-grid">
 
         {/* Notifications */}
         <div className="glass animate-fade-up" style={{ padding: '1.5rem' }}>

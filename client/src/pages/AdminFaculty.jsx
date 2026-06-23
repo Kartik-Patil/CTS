@@ -113,7 +113,7 @@ const AdminFaculty = () => {
                 <label className="sidebar-section-label" style={{ padding: 0, marginBottom: '0.3rem' }}>Full Name</label>
                 <input type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="input-field" placeholder="e.g. Dr. Ramesh Rao" />
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div className="form-grid-2">
                 <div>
                   <label className="sidebar-section-label" style={{ padding: 0, marginBottom: '0.3rem' }}>Department</label>
                   <select required value={formData.department} onChange={(e) => setFormData({ ...formData, department: e.target.value })} className="input-field">
