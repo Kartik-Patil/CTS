@@ -6,7 +6,7 @@ import {
   MessageSquareWarning, LogOut, GraduationCap,
 } from 'lucide-react';
 
-const navSections = [
+const studentNav = [
   {
     label: 'Overview',
     items: [
@@ -37,6 +37,44 @@ const navSections = [
       { to: '/analytics',    label: 'Analytics',   icon: BarChart3 },
     ],
   },
+];
+
+const adminNav = [
+  {
+    label: 'Overview',
+    items: [
+      { to: '/admin/dashboard', label: 'Admin Dashboard', icon: LayoutDashboard },
+    ],
+  },
+  {
+    label: 'Management',
+    items: [
+      { to: '/admin/students',  label: 'Students List',   icon: ClipboardList },
+      { to: '/admin/faculty',   label: 'Faculty List',    icon: BookOpen },
+    ],
+  },
+  {
+    label: 'Communication',
+    items: [
+      { to: '/admin/notifications', label: 'Send Notice', icon: Bell },
+    ],
+  }
+];
+
+const facultyNav = [
+  {
+    label: 'Overview',
+    items: [
+      { to: '/faculty/dashboard', label: 'Faculty Dashboard', icon: LayoutDashboard },
+    ],
+  },
+  {
+    label: 'Academic Tasks',
+    items: [
+      { to: '/faculty/attendance', label: 'Mark Attendance', icon: ClipboardList },
+      { to: '/faculty/marks',      label: 'Enter Marks',      icon: BookOpen },
+    ],
+  }
 ];
 
 const Sidebar = ({ mobileOpen, onClose }) => {
@@ -83,19 +121,33 @@ const Sidebar = ({ mobileOpen, onClose }) => {
               </div>
               <div style={{ overflow: 'hidden' }}>
                 <p style={{ fontWeight: 600, fontSize: '0.8rem', color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{profile.name}</p>
-                <p style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 1 }}>{profile.rollNumber}</p>
+                <p style={{ fontSize: '0.68rem', color: 'var(--text-muted)', marginTop: 1 }}>
+                  {user?.role === 'student' ? profile.rollNumber : user?.role === 'faculty' ? profile.employeeId : 'Administrator'}
+                </p>
               </div>
             </div>
-            <div style={{ display: 'flex', gap: 4, marginTop: '0.5rem', flexWrap: 'wrap' }}>
-              <span className="badge badge-neutral" style={{ fontSize: '0.6rem' }}>Sem {profile.semester}</span>
-              <span className="badge badge-neutral" style={{ fontSize: '0.6rem' }}>{profile.section}</span>
-            </div>
+            {user?.role === 'student' && (
+              <div style={{ display: 'flex', gap: 4, marginTop: '0.5rem', flexWrap: 'wrap' }}>
+                <span className="badge badge-neutral" style={{ fontSize: '0.6rem' }}>Sem {profile.semester}</span>
+                <span className="badge badge-neutral" style={{ fontSize: '0.6rem' }}>{profile.section}</span>
+              </div>
+            )}
+            {user?.role === 'faculty' && (
+              <div style={{ display: 'flex', gap: 4, marginTop: '0.5rem', flexWrap: 'wrap' }}>
+                <span className="badge badge-neutral" style={{ fontSize: '0.6rem' }}>{profile.department?.split(' ')[0]}</span>
+              </div>
+            )}
+            {user?.role === 'admin' && (
+              <div style={{ display: 'flex', gap: 4, marginTop: '0.5rem', flexWrap: 'wrap' }}>
+                <span className="badge badge-neutral" style={{ fontSize: '0.6rem' }}>System Admin</span>
+              </div>
+            )}
           </div>
         )}
 
         {/* Nav */}
         <nav style={{ flex: 1, overflowY: 'auto', paddingBottom: '0.5rem' }}>
-          {navSections.map(({ label, items }) => (
+          {(user?.role === 'admin' ? adminNav : user?.role === 'faculty' ? facultyNav : studentNav).map(({ label, items }) => (
             <div key={label}>
               <div className="sidebar-section-label">{label}</div>
               {items.map(({ to, label: lbl, icon: Icon }) => (

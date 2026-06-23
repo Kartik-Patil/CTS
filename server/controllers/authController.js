@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Student = require('../models/Student');
+const Faculty = require('../models/Faculty');
 
 // Generate JWT
 const generateToken = (id) => {
@@ -65,12 +66,17 @@ const login = async (req, res) => {
 
     const token = generateToken(user._id);
 
-    // Fetch student profile
+    // Fetch profile based on role
     let profile = null;
     if (user.role === 'student') {
       profile = await Student.findOne({ user: user._id })
         .select('-__v')
         .populate('mentor', 'name email mobile designation');
+    } else if (user.role === 'faculty') {
+      profile = await Faculty.findOne({ user: user._id })
+        .select('-__v');
+    } else if (user.role === 'admin') {
+      profile = { name: 'System Administrator' };
     }
 
     res.status(200).json({
@@ -148,6 +154,11 @@ const getMe = async (req, res) => {
       profile = await Student.findOne({ user: req.user._id })
         .select('-__v')
         .populate('mentor', 'name email mobile designation department');
+    } else if (req.user.role === 'faculty') {
+      profile = await Faculty.findOne({ user: req.user._id })
+        .select('-__v');
+    } else if (req.user.role === 'admin') {
+      profile = { name: 'System Administrator' };
     }
 
     res.status(200).json({

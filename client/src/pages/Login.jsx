@@ -19,7 +19,13 @@ const Login = () => {
     try {
       const data = await login(form.username, form.password);
       toast.success(`Welcome back, ${data.profile?.name || data.user.username}!`);
-      navigate('/dashboard');
+      if (data.user.role === 'admin') {
+        navigate('/admin/dashboard');
+      } else if (data.user.role === 'faculty') {
+        navigate('/faculty/dashboard');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (err) {
       const msg = err.response?.data?.message || 'Login failed. Please try again.';
       setError(msg);
