@@ -23,9 +23,15 @@ connectDB();
 app.use(helmet());
 
 const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+let parsedOrigin = clientUrl;
+try {
+  parsedOrigin = new URL(clientUrl).origin;
+} catch (e) {
+  parsedOrigin = clientUrl.replace(/\/$/, '');
+}
+
 const allowedOrigins = [
-  clientUrl,
-  clientUrl.replace(/\/$/, ''),
+  parsedOrigin,
   'http://localhost:5173',
   'http://localhost:5174'
 ];
